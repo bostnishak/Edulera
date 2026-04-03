@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Corporate Panel — Edulera</title>
+    <meta name="description" content="Corporate content management panel.">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="js/theme.js"></script>
+</head>
+
+<body>
+    <div class="panel-layout">
+        <!-- SIDEBAR -->
+        <aside class="panel-sidebar" id="panel-sidebar">
+            <div class="panel-logo">
+                <div class="panel-logo-icon">E</div>
+                <div>
+                    <div class="panel-logo-text">Edulera</div>
+                    <div class="panel-logo-sub">Corporate Panel</div>
+                </div>
+            </div>
+            <nav class="panel-nav">
+                <button class="panel-nav-item active" data-section="dashboard">
+                    <i class="fas fa-chart-bar"></i><span>Dashboard</span>
+                </button>
+                <button class="panel-nav-item" data-section="upload">
+                    <i class="fas fa-upload"></i><span>Upload Video</span>
+                </button>
+                <button class="panel-nav-item" data-section="quiz">
+                    <i class="fas fa-question-circle"></i><span>Create Quiz</span>
+                </button>
+                <button class="panel-nav-item" data-section="certificate">
+                    <i class="fas fa-award"></i><span>Certificate</span>
+                </button>
+                <button class="panel-nav-item" data-section="contents">
+                    <i class="fas fa-list"></i><span>My Content</span>
+                </button>
+            </nav>
+            <div class="panel-sidebar-footer">
+                <div class="panel-user-info" id="corp-user-info"></div>
+                <button class="panel-logout-btn" id="corp-logout"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+            </div>
+            <button class="panel-sidebar-toggle" id="sidebar-toggle"><i class="fas fa-bars"></i></button>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="panel-main" id="panel-main">
+
+            <!-- DASHBOARD -->
+            <section class="panel-section active" id="section-dashboard">
+                <div class="panel-header">
+                    <h2><i class="fas fa-chart-bar"></i> Dashboard</h2>
+                    <p>Welcome! Track the status of your content here.</p>
+                </div>
+                <div class="panel-stats-grid" id="corp-stats"></div>
+                <div class="panel-card mt-6">
+                    <h3 style="margin-bottom:16px"><i class="fas fa-clock" style="color:var(--warning)"></i> Recently Submitted Content</h3>
+                    <div id="corp-recent-list">
+                        <p class="text-muted">No content submitted yet.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- VIDEO UPLOAD -->
+            <section class="panel-section" id="section-upload">
+                <div class="panel-header">
+                    <h2><i class="fas fa-upload"></i> Upload Video</h2>
+                    <p>Create your course content. Once complete, submit it for admin approval.</p>
+                </div>
+                <div class="panel-card">
+                    <form id="upload-form">
+                        <div class="panel-form-grid">
+                            <div class="panel-form-group">
+                                <label>Course Title *</label>
+                                <input type="text" id="up-title" class="form-input" placeholder="e.g. Advanced JavaScript" required>
+                            </div>
+                            <div class="panel-form-group">
+                                <label>Category *</label>
+                                <select id="up-category" class="form-input" required>
+                                    <option value="">Select a category</option>
+                                    <option>Web Development</option>
+                                    <option>Data Science</option>
+                                    <option>Design</option>
+                                    <option>Marketing</option>
+                                </select>
+                            </div>
+                            <div class="panel-form-group">
+                                <label>Price ($)</label>
+                                <input type="number" id="up-price" class="form-input" placeholder="299" min="0">
+                            </div>
+                            <div class="panel-form-group">
+                                <label>Original Price ($)</label>
+                                <input type="number" id="up-old-price" class="form-input" placeholder="599" min="0">
+                            </div>
+                        </div>
+                        <div class="panel-form-group mt-4">
+                            <label>Course Description *</label>
+                            <textarea id="up-description" class="form-input" rows="4" placeholder="Briefly introduce your course..." required style="resize:vertical"></textarea>
+                        </div>
+                        <div class="panel-form-group mt-4">
+                            <label>What Will Students Learn? (One item per line)</label>
+                            <textarea id="up-what-learn" class="form-input" rows="4" placeholder="CSS Grid and Flexbox&#10;JavaScript ES6+&#10;React Hooks" style="resize:vertical"></textarea>
+                        </div>
+                        <div class="panel-form-group mt-4">
+                            <label>Video URLs (Format: Lesson Title | URL, one lesson per line)</label>
+                            <textarea id="up-lessons" class="form-input" rows="5" placeholder="Introduction &amp; Setup | https://youtube.com/...&#10;Core Concepts | https://youtube.com/..." style="resize:vertical"></textarea>
+                        </div>
+                        <div class="panel-form-group mt-4">
+                            <label>Course Emoji</label>
+                            <input type="text" id="up-emoji" class="form-input" placeholder="🎓" maxlength="4" style="width:100px">
+                        </div>
+                        <!-- Upload zone -->
+                        <div class="upload-zone mt-4" id="upload-zone">
+                            <i class="fas fa-cloud-upload-alt upload-zone-icon"></i>
+                            <div class="upload-zone-text">Drag &amp; drop your promo video here</div>
+                            <div class="upload-zone-sub">MP4, AVI, MOV (max 2GB) — or paste a YouTube URL below</div>
+                            <div style="margin-top:12px">
+                                <input type="text" id="up-video-url" class="form-input" placeholder="https://youtube.com/watch?v=..." style="max-width:400px">
+                            </div>
+                            <div class="upload-progress hidden" id="upload-progress">
+                                <div class="upload-progress-bar" id="upload-progress-bar"></div>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 mt-6">
+                            <button type="submit" class="btn btn-primary btn-lg"><i class="fas fa-save"></i> Save Draft</button>
+                            <button type="button" class="btn btn-outline btn-lg" id="submit-for-review-btn"><i class="fas fa-paper-plane"></i> Submit for Approval</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- QUIZ BUILDER -->
+            <section class="panel-section" id="section-quiz">
+                <div class="panel-header">
+                    <h2><i class="fas fa-question-circle"></i> Create Quiz</h2>
+                    <p>Build a quiz linked to your course. Students will take it after completing the course.</p>
+                </div>
+                <div class="panel-card">
+                    <div class="panel-form-group">
+                        <label>Which Course is this Quiz For?</label>
+                        <select id="quiz-course-select" class="form-input">
+                            <option value="">— Select a course —</option>
+                        </select>
+                    </div>
+                    <div id="quiz-builder" style="margin-top:24px">
+                        <div class="quiz-questions-list" id="quiz-questions-list"></div>
+                        <button class="btn btn-outline mt-4" id="add-question-btn"><i class="fas fa-plus"></i> Add Question</button>
+                    </div>
+                    <div class="flex gap-3 mt-6">
+                        <button class="btn btn-primary btn-lg" id="save-quiz-btn"><i class="fas fa-save"></i> Save Quiz</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CERTIFICATE -->
+            <section class="panel-section" id="section-certificate">
+                <div class="panel-header">
+                    <h2><i class="fas fa-award"></i> Certificate Settings</h2>
+                    <p>Configure the certificate that will be issued to students who complete your course.</p>
+                </div>
+                <div class="panel-card">
+                    <div class="panel-form-group">
+                        <label>Which Course is this Certificate For?</label>
+                        <select id="cert-course-select" class="form-input">
+                            <option value="">— Select a course —</option>
+                        </select>
+                    </div>
+                    <div class="panel-form-grid mt-4">
+                        <div class="panel-form-group">
+                            <label>Certificate Title</label>
+                            <input type="text" id="cert-title" class="form-input" placeholder="Certificate of Achievement">
+                        </div>
+                        <div class="panel-form-group">
+                            <label>Issuing Organization</label>
+                            <input type="text" id="cert-issuer" class="form-input" placeholder="TechCorp Inc.">
+                        </div>
+                    </div>
+                    <div class="panel-form-group mt-4">
+                        <label>Certificate Description</label>
+                        <textarea id="cert-desc" class="form-input" rows="3" placeholder="This certificate confirms that the named individual has successfully completed the course." style="resize:vertical"></textarea>
+                    </div>
+                    <div class="panel-form-group mt-4">
+                        <label>Certificate Color Theme</label>
+                        <div class="cert-theme-picker" id="cert-theme-picker">
+                            <div class="cert-theme-option active" data-gradient="linear-gradient(135deg,#4263eb,#3b82f6)" style="background:linear-gradient(135deg,#4263eb,#3b82f6)"></div>
+                            <div class="cert-theme-option" data-gradient="linear-gradient(135deg,#10b981,#3b82f6)" style="background:linear-gradient(135deg,#10b981,#3b82f6)"></div>
+                            <div class="cert-theme-option" data-gradient="linear-gradient(135deg,#f59e0b,#ef4444)" style="background:linear-gradient(135deg,#f59e0b,#ef4444)"></div>
+                            <div class="cert-theme-option" data-gradient="linear-gradient(135deg,#ec4899,#8b5cf6)" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)"></div>
+                            <div class="cert-theme-option" data-gradient="linear-gradient(135deg,#0ea5e9,#10b981)" style="background:linear-gradient(135deg,#0ea5e9,#10b981)"></div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-lg mt-6" id="save-cert-btn"><i class="fas fa-save"></i> Save Certificate Settings</button>
+                </div>
+            </section>
+
+            <!-- MY CONTENTS -->
+            <section class="panel-section" id="section-contents">
+                <div class="panel-header">
+                    <h2><i class="fas fa-list"></i> My Content</h2>
+                    <p>Track the approval status of your submitted content here.</p>
+                </div>
+                <div class="panel-card">
+                    <div class="contents-filter flex gap-3 mb-4" style="flex-wrap:wrap">
+                        <select id="contents-filter-status" class="form-input" style="width:auto">
+                            <option value="">All Statuses</option>
+                            <option value="pending">Pending</option>
+                            <option value="approved">Approved</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                        <button class="btn btn-outline btn-sm" id="contents-refresh-btn"><i class="fas fa-sync-alt"></i> Refresh</button>
+                    </div>
+                    <div id="contents-list"></div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/corporate.js"></script>
+</body>
+
+</html>

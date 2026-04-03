@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Course Detail — Edulera</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="js/theme.js"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="navbar-logo">
+                <div class="navbar-logo-icon">E</div><span class="navbar-logo-text">Edu<span>lera</span></span>
+            </a>
+            <div class="navbar-links" id="navbar-links"><a href="index.html">Home</a><a href="catalog.html"
+                    class="active">Courses</a><a href="profile.html">My Profile</a></div>
+            <div class="navbar-actions">
+                <button class="theme-toggle" data-theme-toggle><span class="theme-toggle-icon">🌙</span></button>
+                <div id="nav-guest" class="flex gap-2"><a href="login.html" class="btn btn-ghost btn-sm">Sign In</a><a
+                        href="register.html" class="btn btn-primary btn-sm">Sign Up</a></div>
+                <div id="nav-user" class="hidden relative">
+                    <div class="navbar-avatar" id="nav-avatar-wrap"><span id="nav-avatar-text">U</span></div>
+                    <div class="navbar-dropdown" id="nav-dropdown"><a href="profile.html"><i class="fas fa-user"></i>
+                            My Profile</a><a href="profile.html"><i class="fas fa-award"></i> My Certificates</a>
+                        <hr><button id="nav-logout"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+                    </div>
+                </div>
+                <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- DETAIL HERO -->
+    <div class="detail-hero">
+        <div class="container">
+            <div style="margin-bottom:12px"><a href="catalog.html" style="color:var(--text-muted);font-size:.875rem"><i
+                        class="fas fa-arrow-left"></i> Back to Catalog</a></div>
+            <div class="detail-layout">
+                <div class="detail-main">
+                    <div id="detail-cat" class="badge badge-accent mb-4"></div>
+                    <h1 id="detail-title" style="font-size:clamp(1.5rem,3vw,2.25rem);margin-bottom:12px"></h1>
+                    <p id="detail-desc" style="font-size:1rem;margin-bottom:16px"></p>
+                    <div id="detail-stars" class="mb-2"></div>
+                    <div class="flex gap-4 flex-wrap text-sm mt-2" style="color:var(--text-muted)">
+                        <span><i class="fas fa-user-tie"></i> <span id="detail-instructor"></span></span>
+                        <span><i class="fas fa-users"></i> <span id="detail-students"></span></span>
+                        <span><i class="fas fa-book"></i> <span id="detail-lessons-count"></span></span>
+                    </div>
+                </div>
+                <!-- buy card -->
+                <div class="detail-sidebar">
+                    <div class="detail-buy-card">
+                        <div class="detail-buy-thumb" id="detail-thumb"></div>
+                        <div class="detail-buy-body">
+                            <div class="flex items-center gap-2 mb-4">
+                                <span class="detail-price-old" id="detail-old-price"></span>
+                                <span class="detail-price-big" id="detail-price"></span>
+                            </div>
+                            <button class="btn btn-primary w-full btn-lg mb-3" id="buy-btn"><i
+                                    class="fas fa-shopping-cart"></i> Buy Now</button>
+                            <button class="btn btn-success w-full btn-lg mb-3 hidden" id="go-btn"><i
+                                    class="fas fa-play-circle"></i> Go to Course</button>
+                            <div class="text-xs text-center" style="color:var(--text-muted)"><i
+                                    class="fas fa-shield-alt"></i> 30-day money-back guarantee</div>
+                            <div class="text-xs text-center mt-2" style="color:var(--text-muted)"><i
+                                    class="fas fa-infinity"></i> Lifetime access</div>
+                            <div class="text-xs text-center mt-2" style="color:var(--text-muted)"><i
+                                    class="fas fa-certificate"></i> Certificate included</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-8">
+        <div class="detail-layout">
+            <main>
+                <!-- What you'll learn -->
+                <div class="card p-6 mb-6">
+                    <h2 style="font-size:1.25rem;margin-bottom:4px">What You Will Learn in This Course</h2>
+                    <ul class="what-learn" id="what-learn-list"></ul>
+                </div>
+                <!-- Curriculum -->
+                <div class="card p-6 mb-6">
+                    <h2 style="font-size:1.25rem;margin-bottom:4px">Curriculum</h2>
+                    <p class="text-sm mb-4" style="color:var(--text-muted)">You can access all lessons after enrolling in the course.</p>
+                    <div id="curriculum-list" class="curriculum-list"></div>
+                </div>
+            </main>
+            <div></div><!-- spacer for grid -->
+        </div>
+    </div>
+
+    <footer style="background:var(--footer-bg);color:#64748b;padding:24px 0">
+        <div class="container text-center text-sm">© 2025 Edulera.</div>
+    </footer>
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/course-detail.js"></script>
+</body>
+
+</html>

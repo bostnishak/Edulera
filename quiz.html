@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Quiz — Edulera</title>
+    <meta name="description" content="Edulera course quiz — test your knowledge and earn your certificate.">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="js/theme.js"></script>
+    <style>
+        .quiz-container { max-width: 760px; margin: 0 auto; padding: 40px 20px 80px; }
+        .quiz-header-bar { background: var(--bg-secondary); padding: 16px 24px; border-radius: var(--radius-xl); margin-bottom: 32px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+        .quiz-timer { display: flex; align-items: center; gap: 8px; font-size: 1.05rem; font-weight: 700; color: var(--accent); }
+        .quiz-timer.warning { color: var(--warning); }
+        .quiz-timer.danger { color: var(--error); animation: pulse 1s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1 } 50% { opacity: .6 } }
+        .question-card { background: var(--bg-card); border-radius: var(--radius-xl); border: 1.5px solid var(--border); padding: 32px; margin-bottom: 24px; transition: all .3s; }
+        .question-card.answered { border-color: var(--accent); }
+        .question-num { font-size: .8rem; font-weight: 700; color: var(--accent); letter-spacing: .05em; text-transform: uppercase; margin-bottom: 10px; }
+        .question-text { font-size: 1.1rem; font-weight: 600; line-height: 1.5; margin-bottom: 20px; }
+        .options-list { display: flex; flex-direction: column; gap: 10px; }
+        .option-btn { display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-radius: var(--radius-lg); border: 2px solid var(--border); background: var(--bg-secondary); cursor: pointer; transition: all .2s; text-align: left; width: 100%; font-size: .95rem; color: var(--text); }
+        .option-btn:hover { border-color: var(--accent); background: var(--accent-soft); }
+        .option-btn.selected { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+        .option-btn.correct { border-color: var(--success); background: var(--success-soft); color: var(--success); }
+        .option-btn.wrong { border-color: var(--error); background: rgba(239,68,68,.08); color: var(--error); }
+        .option-letter { width: 28px; height: 28px; border-radius: 50%; background: var(--bg-card); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; transition: all .2s; }
+        .option-btn.selected .option-letter { background: var(--accent); border-color: var(--accent); color: #fff; }
+        .option-btn.correct .option-letter { background: var(--success); border-color: var(--success); color: #fff; }
+        .option-btn.wrong .option-letter { background: var(--error); border-color: var(--error); color: #fff; }
+        .fill-input { width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: var(--radius-lg); background: var(--bg-secondary); color: var(--text); font-size: .95rem; transition: all .2s; }
+        .fill-input:focus { outline: none; border-color: var(--accent); background: var(--accent-soft); }
+        .tf-options { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .result-card { background: var(--bg-card); border-radius: var(--radius-xl); padding: 48px 36px; text-align: center; border: 1.5px solid var(--border); }
+        .result-icon { font-size: 4rem; margin-bottom: 20px; }
+        .result-score { font-size: 3.5rem; font-weight: 900; margin-bottom: 4px; }
+        .result-pass { color: var(--success); }
+        .result-fail { color: var(--error); }
+    </style>
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="navbar-logo">
+                <div class="navbar-logo-icon">E</div><span class="navbar-logo-text">Edu<span>lera</span></span>
+            </a>
+            <div id="quiz-course-name"
+                style="font-weight:600;font-size:.9rem;color:var(--text-secondary);flex:1;padding:0 20px"></div>
+            <div class="navbar-actions">
+                <button class="theme-toggle" data-theme-toggle title="Toggle theme"><span
+                        class="theme-toggle-icon">🌙</span></button>
+                <div id="nav-guest" class="flex gap-2">
+                    <a href="login.html" class="btn btn-ghost btn-sm">Sign In</a>
+                </div>
+                <div id="nav-user" class="hidden relative">
+                    <div class="navbar-avatar" id="nav-avatar-wrap"><span id="nav-avatar-text">U</span></div>
+                    <div class="navbar-dropdown" id="nav-dropdown">
+                        <a href="profile.html"><i class="fas fa-user"></i> My Profile</a>
+                        <hr>
+                        <button id="nav-logout"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="quiz-container">
+        <!-- QUIZ INTRO -->
+        <div id="quiz-intro">
+            <div class="card" style="padding:40px;text-align:center;max-width:600px;margin:0 auto">
+                <div
+                    style="width:80px;height:80px;border-radius:50%;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:2.4rem;margin:0 auto 24px">
+                    📝</div>
+                <h1 id="intro-title" style="font-size:1.7rem;margin-bottom:12px">Course Quiz</h1>
+                <p id="intro-desc" style="color:var(--text-secondary);margin-bottom:28px;line-height:1.7">This quiz
+                    consists of 10 questions. You need at least 70% correct answers to pass.</p>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px">
+                    <div style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-lg)">
+                        <div style="font-size:1.5rem;font-weight:800;color:var(--accent)">10</div>
+                        <div style="font-size:.85rem;color:var(--text-muted)">Questions</div>
+                    </div>
+                    <div style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-lg)">
+                        <div style="font-size:1.5rem;font-weight:800;color:var(--accent)">15 min</div>
+                        <div style="font-size:.85rem;color:var(--text-muted)">Time Limit</div>
+                    </div>
+                    <div style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-lg)">
+                        <div style="font-size:1.5rem;font-weight:800;color:var(--success)">70%</div>
+                        <div style="font-size:.85rem;color:var(--text-muted)">Pass Score</div>
+                    </div>
+                    <div style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-lg)">
+                        <div style="font-size:1.5rem;font-weight:800;color:var(--warning)">🏆</div>
+                        <div style="font-size:.85rem;color:var(--text-muted)">Achievement Certificate</div>
+                    </div>
+                </div>
+                <div
+                    style="background:var(--warning-soft);border-radius:var(--radius-lg);padding:14px;margin-bottom:24px;text-align:left;display:flex;gap:10px">
+                    <i class="fas fa-exclamation-triangle"
+                        style="color:var(--warning);margin-top:2px;flex-shrink:0"></i>
+                    <span style="font-size:.88rem;color:var(--text-secondary)">The quiz has a 15-minute time limit.
+                        Do not refresh the page after starting — your answers may be lost.</span>
+                </div>
+                <button id="btn-start-quiz" class="btn btn-primary" style="width:100%;font-size:1.05rem;padding:14px">
+                    <i class="fas fa-play"></i> Start Quiz
+                </button>
+            </div>
+        </div>
+
+        <!-- QUIZ ACTIVE -->
+        <div id="quiz-active" style="display:none">
+            <!-- Header bar -->
+            <div class="quiz-header-bar">
+                <div style="flex:1">
+                    <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:4px">Progress</div>
+                    <div style="height:8px;background:var(--bg-card);border-radius:99px;overflow:hidden">
+                        <div id="quiz-progress-bar"
+                            style="height:100%;background:var(--accent);border-radius:99px;transition:width .4s;width:0%">
+                        </div>
+                    </div>
+                </div>
+                <div class="quiz-timer" id="quiz-timer">
+                    <i class="fas fa-clock"></i>
+                    <span id="timer-display">15:00</span>
+                </div>
+                <div style="font-size:.88rem;color:var(--text-muted)">
+                    Question <span id="answered-count">0</span>/10 answered
+                </div>
+            </div>
+
+            <!-- Questions -->
+            <div id="questions-container"></div>
+
+            <!-- Submit button -->
+            <div style="text-align:center;padding:20px 0">
+                <button id="btn-submit-quiz" class="btn btn-primary btn-lg" style="min-width:240px">
+                    <i class="fas fa-check-circle"></i> Submit Quiz
+                </button>
+                <div style="margin-top:12px;font-size:.85rem;color:var(--text-muted)" id="submit-warning"></div>
+            </div>
+        </div>
+
+        <!-- QUIZ RESULT -->
+        <div id="quiz-result" style="display:none">
+            <div class="result-card">
+                <div class="result-icon" id="result-icon">🏆</div>
+                <h1 id="result-headline" style="margin-bottom:8px">Congratulations!</h1>
+                <p id="result-sub" style="color:var(--text-secondary);margin-bottom:24px">You passed the quiz.</p>
+                <div class="result-score" id="result-score-display">0%</div>
+                <div style="font-size:.9rem;color:var(--text-muted);margin-bottom:8px" id="result-score-detail"></div>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:28px 0">
+                    <div style="background:var(--success-soft);padding:16px;border-radius:var(--radius-lg)">
+                        <div style="font-size:1.4rem;font-weight:800;color:var(--success)" id="res-correct">0</div>
+                        <div style="font-size:.82rem;color:var(--text-muted)">Correct</div>
+                    </div>
+                    <div style="background:rgba(239,68,68,.08);padding:16px;border-radius:var(--radius-lg)">
+                        <div style="font-size:1.4rem;font-weight:800;color:var(--error)" id="res-wrong">0</div>
+                        <div style="font-size:.82rem;color:var(--text-muted)">Wrong</div>
+                    </div>
+                    <div style="background:var(--bg-secondary);padding:16px;border-radius:var(--radius-lg)">
+                        <div style="font-size:1.4rem;font-weight:800;color:var(--text-muted)" id="res-empty">0</div>
+                        <div style="font-size:.82rem;color:var(--text-muted)">Unanswered</div>
+                    </div>
+                </div>
+
+                <div id="cert-earned-banner"
+                    style="display:none;background:linear-gradient(135deg,var(--accent),var(--success));border-radius:var(--radius-xl);padding:20px;margin-bottom:24px;color:#fff">
+                    <div style="font-size:1.5rem;margin-bottom:6px">🏆 You Earned an Achievement Certificate!</div>
+                    <div style="opacity:.9;font-size:.9rem">You can view and download your certificate right now.</div>
+                </div>
+
+                <div id="result-actions"
+                    style="display:flex;flex-direction:column;gap:10px;max-width:300px;margin:0 auto">
+                    <button id="btn-view-cert" class="btn btn-primary" style="display:none;width:100%">
+                        <i class="fas fa-award"></i> View My Certificate
+                    </button>
+                    <button id="btn-retake" class="btn btn-outline" style="display:none;width:100%">
+                        <i class="fas fa-redo"></i> Try Again
+                    </button>
+                    <a href="profile.html" class="btn btn-outline" style="width:100%">
+                        <i class="fas fa-user"></i> Go to My Profile
+                    </a>
+                    <a id="btn-back-course" href="#" class="btn btn-ghost" style="width:100%">
+                        <i class="fas fa-arrow-left"></i> Back to Course
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/quiz.js"></script>
+</body>
+
+</html>

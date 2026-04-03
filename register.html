@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Sign Up — Edulera</title>
+    <meta name="description" content="Create your Edulera account and start learning.">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="js/theme.js"></script>
+</head>
+
+<body>
+    <div class="auth-bg"></div>
+    <div style="position:fixed;top:16px;right:16px;z-index:100">
+        <button class="theme-toggle" data-theme-toggle title="Toggle theme"><span
+                class="theme-toggle-icon">🌙</span></button>
+    </div>
+    <div class="auth-page" style="padding:100px 24px 40px">
+        <div class="auth-card animate-fadeInUp" style="max-width:520px">
+            <a href="index.html" class="auth-logo">
+                <div class="auth-logo-icon">E</div>
+                <span class="auth-logo-text">Edu<span>lera</span></span>
+            </a>
+            <h1 class="auth-title">Get Started!</h1>
+            <p class="auth-subtitle">Create a free account and access thousands of courses.</p>
+            <form class="auth-form" id="register-form">
+                <div class="form-group">
+                    <label class="form-label" for="name">Full Name</label>
+                    <div class="input-icon-wrap">
+                        <i class="fas fa-user input-icon"></i>
+                        <input class="form-input" type="text" id="name" placeholder="Your Full Name"
+                            autocomplete="name">
+                    </div>
+                    <span class="form-error" id="name-err">Full name cannot be empty.</span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address</label>
+                    <div class="input-icon-wrap">
+                        <i class="fas fa-envelope input-icon"></i>
+                        <input class="form-input" type="email" id="email" placeholder="example@email.com"
+                            autocomplete="email">
+                    </div>
+                    <span class="form-error" id="email-err">Please enter a valid email address.</span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="password">Password</label>
+                    <div class="input-icon-wrap">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input class="form-input" type="password" id="password" placeholder="At least 6 characters"
+                            autocomplete="new-password">
+                    </div>
+                    <span class="form-error" id="pw-err">Password must be at least 6 characters.</span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="password2">Confirm Password</label>
+                    <div class="input-icon-wrap">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input class="form-input" type="password" id="password2" placeholder="Repeat your password">
+                    </div>
+                    <span class="form-error" id="pw2-err">Passwords do not match.</span>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Your Interests <span class="form-sublabel">(optional — for
+                            recommendations)</span></label>
+                    <div class="interests-grid" id="interests-grid">
+                        <label class="interest-chip"><input type="checkbox" value="Web Development"><i
+                                class="fas fa-code"></i> Web Development</label>
+                        <label class="interest-chip"><input type="checkbox" value="Data Science"><i
+                                class="fas fa-chart-bar"></i> Data Science</label>
+                        <label class="interest-chip"><input type="checkbox" value="Design"><i
+                                class="fas fa-palette"></i> Design</label>
+                        <label class="interest-chip"><input type="checkbox" value="Marketing"><i
+                                class="fas fa-bullhorn"></i> Marketing</label>
+                    </div>
+                </div>
+                <div id="reg-error" class="hidden"
+                    style="background:var(--danger-soft);color:var(--danger);padding:12px 16px;border-radius:var(--radius-md);font-size:.875rem;text-align:center">
+                </div>
+                <button type="submit" class="btn btn-primary w-full btn-lg" id="reg-btn"><i
+                        class="fas fa-user-plus"></i> Sign Up</button>
+            </form>
+            <p class="auth-footer">Already have an account? <a href="login.html">Sign In</a></p>
+        </div>
+    </div>
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (LHAuth.getCurrentUser()) { location.href = 'index.html'; return; }
+            // Interest chip toggle
+            document.querySelectorAll('.interest-chip').forEach(chip => {
+                chip.addEventListener('click', () => { chip.classList.toggle('selected'); });
+            });
+            const form = document.getElementById('register-form');
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const pw = document.getElementById('password').value;
+                const pw2 = document.getElementById('password2').value;
+                const errEl = document.getElementById('reg-error');
+                const btn = document.getElementById('reg-btn');
+                let ok = true;
+                if (!name) { document.getElementById('name-err').classList.add('show'); ok = false; } else document.getElementById('name-err').classList.remove('show');
+                if (!email || !email.includes('@')) { document.getElementById('email-err').classList.add('show'); ok = false; } else document.getElementById('email-err').classList.remove('show');
+                if (!pw || pw.length < 6) { document.getElementById('pw-err').classList.add('show'); ok = false; } else document.getElementById('pw-err').classList.remove('show');
+                if (pw !== pw2) { document.getElementById('pw2-err').classList.add('show'); ok = false; } else document.getElementById('pw2-err').classList.remove('show');
+                if (!ok) return;
+                const interests = [...document.querySelectorAll('#interests-grid input:checked')].map(el => el.value);
+                btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Registering...';
+                setTimeout(() => {
+                    const res = LHAuth.register({ name, email, password: pw, interests });
+                    if (res.ok) {
+                        LHData.toast('Welcome ' + name + '! 🎉', 'success');
+                        setTimeout(() => location.href = 'index.html', 1000);
+                    } else {
+                        errEl.textContent = res.msg; errEl.classList.remove('hidden');
+                        btn.disabled = false; btn.innerHTML = '<i class="fas fa-user-plus"></i> Sign Up';
+                    }
+                }, 800);
+            });
+        });
+    </script>
+</body>
+
+</html>

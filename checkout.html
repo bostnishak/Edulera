@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout — Edulera</title>
+<meta name="description" content="Edulera secure checkout page.">
+<link rel="stylesheet" href="css/global.css"><link rel="stylesheet" href="css/components.css"><link rel="stylesheet" href="css/pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="js/theme.js"></script>
+</head>
+<body>
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="navbar-logo"><div class="navbar-logo-icon">E</div><span class="navbar-logo-text">Edu<span>lera</span></span></a>
+    <div class="navbar-links" id="navbar-links">
+      <a href="index.html">Home</a>
+      <a href="catalog.html">Courses</a>
+    </div>
+    <div class="navbar-actions">
+      <button class="theme-toggle" data-theme-toggle title="Toggle theme"><span class="theme-toggle-icon">🌙</span></button>
+      <div id="nav-guest" class="flex gap-2">
+        <a href="login.html" class="btn btn-ghost btn-sm">Sign In</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
+      </div>
+      <div id="nav-user" class="hidden relative">
+        <div class="navbar-avatar" id="nav-avatar-wrap"><span id="nav-avatar-text">U</span></div>
+        <div class="navbar-dropdown" id="nav-dropdown">
+          <a href="profile.html"><i class="fas fa-user"></i> My Profile</a>
+          <a href="profile.html"><i class="fas fa-book"></i> My Courses</a>
+          <hr>
+          <button id="nav-logout"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+        </div>
+      </div>
+      <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- CHECKOUT -->
+<main style="min-height:80vh;padding:60px 0">
+  <div class="container" style="max-width:900px">
+    <!-- Breadcrumb -->
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:32px;color:var(--text-muted);font-size:.9rem">
+      <a href="catalog.html" style="color:var(--accent)">Courses</a>
+      <i class="fas fa-chevron-right" style="font-size:.7rem"></i>
+      <span id="bc-course">Course Detail</span>
+      <i class="fas fa-chevron-right" style="font-size:.7rem"></i>
+      <span>Checkout</span>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 380px;gap:32px;align-items:start" id="checkout-grid">
+      <!-- Payment Form -->
+      <div>
+        <div class="card" style="padding:32px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:28px">
+            <div style="width:44px;height:44px;border-radius:var(--radius-lg);background:var(--accent-soft);display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:1.2rem">
+              <i class="fas fa-lock"></i>
+            </div>
+            <div>
+              <h2 style="margin:0;font-size:1.3rem">Secure Checkout</h2>
+              <p style="margin:0;font-size:.85rem;color:var(--text-muted)">SSL encrypted</p>
+            </div>
+            <div style="margin-left:auto;display:flex;gap:6px">
+              <img src="https://img.icons8.com/color/48/visa.png" style="height:28px;border-radius:4px" alt="Visa">
+              <img src="https://img.icons8.com/color/48/mastercard.png" style="height:28px;border-radius:4px" alt="Mastercard">
+            </div>
+          </div>
+
+          <form id="checkout-form" novalidate>
+            <!-- Card Number -->
+            <div class="form-group">
+              <label class="form-label">Card Number</label>
+              <div style="position:relative">
+                <input type="text" id="card-number" class="form-input" placeholder="1234 5678 9012 3456" maxlength="19" autocomplete="cc-number">
+                <i class="fas fa-credit-card" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted)"></i>
+              </div>
+              <div class="form-error" id="err-card-number"></div>
+            </div>
+
+            <!-- Name -->
+            <div class="form-group">
+              <label class="form-label">Name on Card</label>
+              <input type="text" id="card-name" class="form-input" placeholder="FULL NAME" autocomplete="cc-name">
+              <div class="form-error" id="err-card-name"></div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+              <!-- Expiry -->
+              <div class="form-group">
+                <label class="form-label">Expiration Date</label>
+                <input type="text" id="card-expiry" class="form-input" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp">
+                <div class="form-error" id="err-card-expiry"></div>
+              </div>
+              <!-- CVV -->
+              <div class="form-group">
+                <label class="form-label">CVV / CVC</label>
+                <div style="position:relative">
+                  <input type="text" id="card-cvv" class="form-input" placeholder="123" maxlength="4" autocomplete="cc-csc">
+                  <i class="fas fa-question-circle" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-muted);cursor:help" title="3–4 digit security code on the back of your card"></i>
+                </div>
+                <div class="form-error" id="err-card-cvv"></div>
+              </div>
+            </div>
+
+            <!-- Billing Address -->
+            <div class="form-group">
+              <label class="form-label">Billing Address (optional)</label>
+              <input type="text" id="billing-address" class="form-input" placeholder="City, State">
+            </div>
+
+            <div style="background:var(--success-soft);border-radius:var(--radius-lg);padding:14px 18px;display:flex;gap:12px;align-items:center;margin-bottom:24px">
+              <i class="fas fa-shield-alt" style="color:var(--success);font-size:1.2rem"></i>
+              <div style="font-size:.85rem">
+                <strong style="color:var(--success)">Secure Payment Guarantee</strong><br>
+                <span style="color:var(--text-secondary)">This transaction is protected by 256-bit SSL encryption. Your card details are never stored.</span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width:100%;font-size:1.05rem;padding:14px 0" id="pay-btn">
+              <i class="fas fa-lock"></i> <span id="pay-btn-text">Pay Securely</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Order Summary -->
+      <div>
+        <div class="card" style="padding:24px;position:sticky;top:100px">
+          <h3 style="margin-bottom:20px;font-size:1.1rem">Order Summary</h3>
+          <div id="order-course-card" style="display:flex;gap:14px;padding-bottom:20px;border-bottom:1px solid var(--border)">
+            <div id="order-thumb" style="width:80px;height:60px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:1.8rem;flex-shrink:0"></div>
+            <div>
+              <div id="order-title" style="font-weight:600;font-size:.95rem;line-height:1.3;margin-bottom:4px"></div>
+              <div id="order-instructor" style="font-size:.82rem;color:var(--text-muted)"></div>
+              <div id="order-meta" style="font-size:.8rem;color:var(--text-muted);margin-top:4px"></div>
+            </div>
+          </div>
+          <div style="padding:16px 0;border-bottom:1px solid var(--border)">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:.9rem">
+              <span style="color:var(--text-secondary)">List Price</span>
+              <span id="order-old-price" style="text-decoration:line-through;color:var(--text-muted)"></span>
+            </div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:.9rem">
+              <span style="color:var(--text-secondary)">Discount</span>
+              <span id="order-discount" style="color:var(--success)"></span>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:space-between;padding-top:16px;font-weight:700;font-size:1.2rem">
+            <span>Total</span>
+            <span id="order-price" style="color:var(--accent)"></span>
+          </div>
+          <div style="margin-top:16px;padding:12px;background:var(--accent-soft);border-radius:var(--radius-md);font-size:.82rem;color:var(--text-secondary)">
+            <i class="fas fa-infinity" style="color:var(--accent);margin-right:6px"></i>Lifetime access after purchase
+          </div>
+          <div style="margin-top:8px;padding:12px;background:var(--success-soft);border-radius:var(--radius-md);font-size:.82rem;color:var(--text-secondary)">
+            <i class="fas fa-award" style="color:var(--success);margin-right:6px"></i>Certificate of completion included
+          </div>
+          <div style="margin-top:8px;padding:12px;background:var(--bg-secondary);border-radius:var(--radius-md);font-size:.82rem;color:var(--text-secondary)">
+            <i class="fas fa-redo" style="color:var(--text-muted);margin-right:6px"></i>30-day money-back guarantee
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="modal-overlay hidden">
+      <div class="modal" style="max-width:420px;text-align:center">
+        <div style="width:80px;height:80px;border-radius:50%;background:var(--success-soft);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:2.4rem">✅</div>
+        <h2 style="margin-bottom:8px">Payment Successful!</h2>
+        <p style="color:var(--text-secondary);margin-bottom:24px">Your course has been added to your account. You can start learning right away!</p>
+        <button class="btn btn-primary" id="go-to-course-btn" style="width:100%;margin-bottom:12px">
+          <i class="fas fa-play"></i> Go to Course
+        </button>
+        <a href="catalog.html" class="btn btn-outline" style="width:100%">Back to Course Catalog</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-bottom"><span>© 2025 Edulera. All rights reserved.</span><span>Made with ❤️</span></div>
+  </div>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/checkout.js"></script>
+</body>
+</html>

@@ -1,0 +1,357 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Edulera — Online Learning Platform</title>
+  <meta name="description"
+    content="Discover thousands of online courses on Edulera. Web development, data science, design, and more.">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="js/theme.js"></script>
+</head>
+
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-logo">
+        <div class="navbar-logo-icon">E</div><span class="navbar-logo-text">Edu<span>lera</span></span>
+      </a>
+      <div class="navbar-links" id="navbar-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="catalog.html">Courses</a>
+        <a href="profile.html">My Profile</a>
+      </div>
+      <div class="navbar-actions">
+        <button class="theme-toggle" data-theme-toggle title="Toggle theme"><span
+            class="theme-toggle-icon">🌙</span></button>
+        <div id="nav-guest" class="flex gap-2">
+          <a href="login.html" class="btn btn-ghost btn-sm">Sign In</a>
+          <a href="register.html" class="btn btn-primary btn-sm">Sign Up</a>
+        </div>
+        <div id="nav-user" class="hidden relative">
+          <div class="navbar-avatar" id="nav-avatar-wrap"><span id="nav-avatar-text">U</span></div>
+          <div class="navbar-dropdown" id="nav-dropdown">
+            <a href="profile.html"><i class="fas fa-user"></i> My Profile</a>
+            <a href="profile.html"><i class="fas fa-book"></i> My Courses</a>
+            <a href="profile.html"><i class="fas fa-award"></i> My Certificates</a>
+            <hr>
+            <button id="nav-logout"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+          </div>
+        </div>
+        <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero hero-gradient">
+    <div class="hero-bg-1"></div>
+    <div class="hero-bg-2"></div>
+    <div class="container">
+      <div class="hero-content animate-fadeInUp">
+        <div class="hero-badge"><i class="fas fa-bolt"></i> The Best Online Learning Platform</div>
+        <h1>Take Your Career <span class="text-gradient">To The Next</span><br>Level</h1>
+        <p>Learn from expert instructors in web development, data science, design, and marketing.
+          Earn your certificate and stand out in your career.</p>
+        <div class="hero-actions">
+          <a href="catalog.html" class="btn btn-primary btn-xl"><i class="fas fa-rocket"></i> Browse Courses</a>
+          <a href="register.html" class="btn btn-outline btn-xl"><i class="fas fa-user-plus"></i> Free Sign Up</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat-item">
+            <div class="hero-stat-num">12+</div>
+            <div class="hero-stat-label">Online Courses</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-num">80K+</div>
+            <div class="hero-stat-label">Happy Students</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-num">15+</div>
+            <div class="hero-stat-label">Expert Instructors</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="hero-stat-num">4.8⭐</div>
+            <div class="hero-stat-label">Average Rating</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card-float glass animate-float" style="margin-left:40px">
+          <div class="hcf-icon" style="background:var(--success-soft)">🏆</div>
+          <div>
+            <div class="hcf-title">Alex earned his certificate!</div>
+            <div class="hcf-sub">React.js Course</div>
+          </div>
+        </div>
+        <div class="hero-card-float glass" style="margin-left:80px">
+          <div class="hcf-icon" style="background:var(--accent-soft)">📈</div>
+          <div>
+            <div class="hcf-title">New course added</div>
+            <div class="hcf-sub">Flutter Mobile Development</div>
+          </div>
+        </div>
+        <div class="hero-card-float glass" style="margin-left:20px">
+          <div class="hcf-icon" style="background:var(--warning-soft)">⭐</div>
+          <div>
+            <div class="hcf-title">Sarah left a review</div>
+            <div class="hcf-sub">"An amazing course!"</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section style="padding:40px 0 80px">
+    <div class="container">
+      <div class="section-header center">
+        <div class="section-label"><i class="fas fa-th-large"></i> Categories</div>
+        <h2 class="section-title">What Do You Want to Learn?</h2>
+      </div>
+      <div class="grid-4">
+        <a href="catalog.html?cat=Web+Development" class="cat-card">
+          <div class="cat-icon" style="background:var(--info-soft)">💻</div>
+          <h4>Web Development</h4>
+          <span>4 Courses</span>
+        </a>
+        <a href="catalog.html?cat=Data+Science" class="cat-card">
+          <div class="cat-icon" style="background:var(--success-soft)">🐍</div>
+          <h4>Data Science</h4>
+          <span>3 Courses</span>
+        </a>
+        <a href="catalog.html?cat=Design" class="cat-card">
+          <div class="cat-icon" style="background:var(--warning-soft)">🎨</div>
+          <h4>Design</h4>
+          <span>2 Courses</span>
+        </a>
+        <a href="catalog.html?cat=Marketing" class="cat-card">
+          <div class="cat-icon" style="background:rgba(219,39,119,0.08)">📈</div>
+          <h4>Marketing</h4>
+          <span>3 Courses</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURED COURSES -->
+  <section style="background:var(--bg-secondary);padding:80px 0">
+    <div class="container">
+      <div class="section-header"
+        style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px">
+        <div>
+          <div class="section-label"><i class="fas fa-fire"></i> Featured</div>
+          <h2 class="section-title">Most Popular Courses</h2>
+        </div>
+        <a href="catalog.html" class="btn btn-outline">View All <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="grid-4" id="featured-grid"></div>
+    </div>
+  </section>
+
+  <!-- RECOMMENDATIONS (only logged in) -->
+  <section id="rec-section" class="hidden">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-label"><i class="fas fa-magic"></i> For You</div>
+        <h2 class="section-title">Recommended Based on Your Interests</h2>
+      </div>
+      <div class="grid-3" id="rec-grid"></div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section style="background:var(--bg-secondary);padding:80px 0">
+    <div class="container">
+      <div class="section-header center">
+        <div class="section-label"><i class="fas fa-info-circle"></i> How It Works</div>
+        <h2 class="section-title">Start Learning in 3 Steps</h2>
+      </div>
+      <div class="grid-3">
+        <div style="text-align:center;padding:24px">
+          <div
+            style="width:72px;height:72px;border-radius:var(--radius-xl);background:var(--accent-soft);display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 20px">
+            1️⃣</div>
+          <h3 style="margin-bottom:8px">Choose a Course</h3>
+          <p>Browse hundreds of courses and find the one that matches your interests.</p>
+        </div>
+        <div style="text-align:center;padding:24px">
+          <div
+            style="width:72px;height:72px;border-radius:var(--radius-xl);background:var(--success-soft);display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 20px">
+            2️⃣</div>
+          <h3 style="margin-bottom:8px">Pay &amp; Start</h3>
+          <p>Get instant access with a secure payment and watch at your own pace.</p>
+        </div>
+        <div style="text-align:center;padding:24px">
+          <div
+            style="width:72px;height:72px;border-radius:var(--radius-xl);background:var(--warning-soft);display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 20px">
+            3️⃣</div>
+          <h3 style="margin-bottom:8px">Earn Your Certificate</h3>
+          <p>Complete the course, pass the quiz, and download your digital certificate.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section>
+    <div class="container">
+      <div class="section-header center">
+        <div class="section-label"><i class="fas fa-quote-left"></i> Reviews</div>
+        <h2 class="section-title">What Our Students Say</h2>
+      </div>
+      <div class="grid-3">
+        <div class="testimonial-card">
+          <div class="stars mb-4">${'⭐'.repeat(5)}</div>
+          <div class="testimonial-text">Thanks to Edulera I learned frontend development and landed my first job. The course content is genuinely top-quality!</div>
+          <div class="testimonial-author">
+            <div class="avatar avatar-sm" style="background:linear-gradient(135deg,var(--accent-600),var(--accent-400))">M</div>
+            <div>
+              <div class="testimonial-name">Marcus Evans</div>
+              <div class="testimonial-role">Junior Frontend Developer</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars mb-4">${'⭐'.repeat(5)}</div>
+          <div class="testimonial-text">Three months after finishing the data science course I moved into a new position. The certificate was a huge plus in my interviews.</div>
+          <div class="testimonial-author">
+            <div class="avatar avatar-sm" style="background:linear-gradient(135deg,var(--success),var(--info))">S</div>
+            <div>
+              <div class="testimonial-name">Sarah Chen</div>
+              <div class="testimonial-role">Data Analyst</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars mb-4">${'⭐'.repeat(5)}</div>
+          <div class="testimonial-text">I took the Figma course and managed to become a UX designer from scratch. The instructors are truly experienced and engaged.</div>
+          <div class="testimonial-author">
+            <div class="avatar avatar-sm" style="background:linear-gradient(135deg,var(--warning),var(--danger))">B</div>
+            <div>
+              <div class="testimonial-name">Brian Cole</div>
+              <div class="testimonial-role">UX Designer</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="container">
+    <div class="cta-section">
+      <h2>Start Learning Today!</h2>
+      <p>Sign up for free and explore courses tailored to your interests.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+        <a href="register.html" class="btn btn-ghost btn-lg"><i class="fas fa-user-plus"></i> Free Sign Up</a>
+        <a href="catalog.html" class="btn btn-lg"
+          style="background:rgba(255,255,255,0.2);color:#fff;border:2px solid rgba(255,255,255,0.4)"><i
+            class="fas fa-search"></i> Browse Courses</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <div class="footer-logo-icon">E</div>
+            <div class="footer-logo-text">Edu<span>lera</span></div>
+          </div>
+          <p>A comprehensive online learning platform. Quality content, experienced instructors, recognized certificates.</p>
+          <div class="footer-social">
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>Platform</h4><a href="catalog.html">Courses</a><a href="register.html">Sign Up</a><a
+            href="login.html">Sign In</a>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4><a href="catalog.html">Web Development</a><a href="catalog.html">Data Science</a><a
+            href="catalog.html">Design</a><a href="catalog.html">Marketing</a>
+        </div>
+        <div class="footer-col">
+          <h4>Support</h4><a href="#">FAQ</a><a href="#">Contact</a><a href="#">Privacy</a><a href="#">Terms of Use</a>
+        </div>
+      </div>
+      <div class="footer-bottom"><span>© 2025 Edulera. All rights reserved.</span><span>Made with ❤️</span></div>
+    </div>
+  </footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      LHAuth.initNavbar();
+      const user = LHAuth.getCurrentUser();
+      const courses = LHData.getAllCourses();
+
+
+      // Featured courses (top 4 by students)
+      const featured = [...courses].sort((a, b) => b.students - a.students).slice(0, 4);
+      const grid = document.getElementById('featured-grid');
+      if (grid) grid.innerHTML = featured.map(c => `
+    <div class="card course-card" onclick="location.href='course-detail.html?id=${c.id}'" style="cursor:pointer">
+      <div class="course-card-thumb">
+        <div class="course-card-thumb-grad" style="background:${c.gradient}">${c.emoji}</div>
+        <span class="course-card-badge">${c.category}</span>
+      </div>
+      <div class="course-card-body">
+        <div class="course-card-cat">${c.category}</div>
+        <div class="course-card-title">${c.title}</div>
+        <div class="course-card-instructor"><i class="fas fa-user-tie" style="margin-right:4px;opacity:.6"></i>${c.instructor}</div>
+        <div class="rating-row mt-2">
+          <span class="stars">${LHData.starHTML(c.rating)}</span>
+          <span class="rating-val">${c.rating}</span>
+          <span class="rating-count">(${c.ratingCount.toLocaleString('en')})</span>
+        </div>
+        <div class="course-card-footer">
+          <div class="course-card-price"><span class="old-price">$${c.oldPrice}</span>$${c.price}</div>
+          <div class="badge badge-accent"><i class="fas fa-book"></i> ${c.lessons.length} lessons</div>
+        </div>
+      </div>
+    </div>`).join('');
+
+      // Recommendations
+      const recSection = document.getElementById('rec-section');
+      const recGrid = document.getElementById('rec-grid');
+      if (user && user.interests && user.interests.length && recSection && recGrid) {
+        recSection.classList.remove('hidden');
+        const recs = courses.filter(c => user.interests.includes(c.category)).slice(0, 3);
+        recGrid.innerHTML = recs.map(c => `
+      <div class="card course-card" onclick="location.href='course-detail.html?id=${c.id}'" style="cursor:pointer">
+        <div class="course-card-thumb">
+          <div class="course-card-thumb-grad" style="background:${c.gradient}">${c.emoji}</div>
+          <span class="course-card-badge">${c.category}</span>
+        </div>
+        <div class="course-card-body">
+          <div class="course-card-cat">${c.category}</div>
+          <div class="course-card-title">${c.title}</div>
+          <div class="course-card-instructor"><i class="fas fa-user-tie" style="margin-right:4px;opacity:.6"></i>${c.instructor}</div>
+          <div class="rating-row mt-2">
+            <span class="stars">${LHData.starHTML(c.rating)}</span>
+            <span class="rating-val">${c.rating}</span>
+          </div>
+          <div class="course-card-footer">
+            <div class="course-card-price"><span class="old-price">$${c.oldPrice}</span>$${c.price}</div>
+          </div>
+        </div>
+      </div>`).join('');
+      }
+    });
+  </script>
+</body>
+
+</html>

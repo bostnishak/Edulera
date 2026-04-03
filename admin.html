@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Admin Panel — Edulera</title>
+    <meta name="description" content="Edulera platform administration panel.">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="js/theme.js"></script>
+</head>
+
+<body>
+    <div class="panel-layout">
+        <!-- SIDEBAR -->
+        <aside class="panel-sidebar admin-sidebar" id="panel-sidebar">
+            <div class="panel-logo">
+                <div class="panel-logo-icon" style="background:linear-gradient(135deg,#ef4444,#f59e0b)">A</div>
+                <div>
+                    <div class="panel-logo-text">Edulera</div>
+                    <div class="panel-logo-sub">Admin Panel</div>
+                </div>
+            </div>
+            <nav class="panel-nav">
+                <button class="panel-nav-item active" data-section="dashboard">
+                    <i class="fas fa-tachometer-alt"></i><span>Dashboard</span>
+                </button>
+                <button class="panel-nav-item" data-section="approval">
+                    <i class="fas fa-clipboard-check"></i><span>Approval Queue</span>
+                    <span class="nav-badge" id="pending-badge">0</span>
+                </button>
+                <button class="panel-nav-item" data-section="courses">
+                    <i class="fas fa-book"></i><span>Manage Courses</span>
+                </button>
+                <button class="panel-nav-item" data-section="users">
+                    <i class="fas fa-users"></i><span>Users</span>
+                </button>
+            </nav>
+            <div class="panel-sidebar-footer">
+                <div class="panel-user-info" id="admin-user-info"></div>
+                <button class="panel-logout-btn" id="admin-logout"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+            </div>
+            <button class="panel-sidebar-toggle" id="sidebar-toggle"><i class="fas fa-bars"></i></button>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="panel-main" id="panel-main">
+
+            <!-- DASHBOARD -->
+            <section class="panel-section active" id="section-dashboard">
+                <div class="panel-header">
+                    <h2><i class="fas fa-tachometer-alt"></i> Admin Dashboard</h2>
+                    <p>Monitor the overall status of the platform here.</p>
+                </div>
+                <div class="panel-stats-grid" id="admin-stats"></div>
+                <div class="grid-2 mt-6">
+                    <div class="panel-card">
+                        <h3 style="margin-bottom:16px"><i class="fas fa-clock" style="color:var(--warning)"></i> Pending Approval</h3>
+                        <div id="admin-pending-preview"></div>
+                        <button class="btn btn-outline btn-sm mt-4" onclick="document.querySelector('[data-section=approval]').click()">View All</button>
+                    </div>
+                    <div class="panel-card">
+                        <h3 style="margin-bottom:16px"><i class="fas fa-chart-line" style="color:var(--success)"></i> Platform Summary</h3>
+                        <div id="admin-summary"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- APPROVAL QUEUE -->
+            <section class="panel-section" id="section-approval">
+                <div class="panel-header">
+                    <h2><i class="fas fa-clipboard-check"></i> Approval Queue</h2>
+                    <p>Review content submitted by corporate accounts and approve or reject.</p>
+                </div>
+                <div class="panel-card mb-4">
+                    <div class="admin-filters flex gap-3" style="flex-wrap:wrap;align-items:flex-end">
+                        <div>
+                            <label style="display:block;font-size:.8rem;font-weight:600;margin-bottom:6px;color:var(--text-secondary)">Status</label>
+                            <select id="filter-status" class="form-input" style="width:160px">
+                                <option value="">All</option>
+                                <option value="pending">Pending</option>
+                                <option value="approved">Approved</option>
+                                <option value="rejected">Rejected</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display:block;font-size:.8rem;font-weight:600;margin-bottom:6px;color:var(--text-secondary)">Category</label>
+                            <select id="filter-category" class="form-input" style="width:180px">
+                                <option value="">All Categories</option>
+                                <option>Web Development</option>
+                                <option>Data Science</option>
+                                <option>Design</option>
+                                <option>Marketing</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display:block;font-size:.8rem;font-weight:600;margin-bottom:6px;color:var(--text-secondary)">Company Name</label>
+                            <input type="text" id="filter-company" class="form-input" placeholder="Search company..." style="width:200px">
+                        </div>
+                        <button class="btn btn-primary btn-sm" id="apply-filters-btn"><i class="fas fa-filter"></i> Filter</button>
+                        <button class="btn btn-ghost btn-sm" id="clear-filters-btn"><i class="fas fa-times"></i> Clear</button>
+                    </div>
+                </div>
+                <div id="approval-list"></div>
+            </section>
+
+            <!-- MANAGE COURSES -->
+            <section class="panel-section" id="section-courses">
+                <div class="panel-header">
+                    <h2><i class="fas fa-book"></i> Manage Courses</h2>
+                    <p>View, edit, or delete all existing courses.</p>
+                </div>
+                <div class="panel-card mb-4">
+                    <div class="flex gap-3" style="flex-wrap:wrap;align-items:center">
+                        <input type="text" id="course-search" class="form-input" placeholder="Search course name or instructor..." style="flex:1;min-width:200px">
+                        <select id="course-cat-filter" class="form-input" style="width:180px">
+                            <option value="">All Categories</option>
+                            <option>Web Development</option>
+                            <option>Data Science</option>
+                            <option>Design</option>
+                            <option>Marketing</option>
+                        </select>
+                        <button class="btn btn-outline btn-sm" id="courses-refresh-btn"><i class="fas fa-sync-alt"></i></button>
+                    </div>
+                </div>
+                <div class="panel-card" style="padding:0;overflow:hidden">
+                    <div class="admin-table-wrap">
+                        <table class="admin-table" id="courses-table">
+                            <thead>
+                                <tr>
+                                    <th>Course</th>
+                                    <th>Category</th>
+                                    <th>Instructor</th>
+                                    <th>Price</th>
+                                    <th>Type</th>
+                                    <th style="text-align:right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="courses-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- USERS -->
+            <section class="panel-section" id="section-users">
+                <div class="panel-header">
+                    <h2><i class="fas fa-users"></i> Users</h2>
+                    <p>View all registered users.</p>
+                </div>
+                <div class="panel-card mb-4">
+                    <div class="flex gap-3" style="flex-wrap:wrap;align-items:center">
+                        <input type="text" id="user-search" class="form-input" placeholder="Search name or email..." style="flex:1;min-width:200px">
+                        <select id="user-role-filter" class="form-input" style="width:160px">
+                            <option value="">All Roles</option>
+                            <option value="user">Users</option>
+                            <option value="corporate">Corporate</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="panel-card" style="padding:0;overflow:hidden">
+                    <div class="admin-table-wrap">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>User</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Registered</th>
+                                </tr>
+                            </thead>
+                            <tbody id="users-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Edit Course Modal -->
+    <div class="modal-overlay hidden" id="edit-modal">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3><i class="fas fa-edit"></i> Edit Course</h3>
+                <button class="modal-close" id="modal-close-btn"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="edit-course-form">
+                <input type="hidden" id="edit-course-id">
+                <div class="panel-form-grid">
+                    <div class="panel-form-group">
+                        <label>Course Title</label>
+                        <input type="text" id="edit-title" class="form-input" required>
+                    </div>
+                    <div class="panel-form-group">
+                        <label>Category</label>
+                        <select id="edit-category" class="form-input">
+                            <option>Web Development</option>
+                            <option>Data Science</option>
+                            <option>Design</option>
+                            <option>Marketing</option>
+                        </select>
+                    </div>
+                    <div class="panel-form-group">
+                        <label>Price ($)</label>
+                        <input type="number" id="edit-price" class="form-input" min="0">
+                    </div>
+                    <div class="panel-form-group">
+                        <label>Instructor</label>
+                        <input type="text" id="edit-instructor" class="form-input">
+                    </div>
+                </div>
+                <div class="panel-form-group mt-4">
+                    <label>Description</label>
+                    <textarea id="edit-description" class="form-input" rows="3" style="resize:vertical"></textarea>
+                </div>
+                <div class="modal-actions flex gap-3 mt-6" style="justify-content:flex-end">
+                    <button type="button" class="btn btn-ghost" id="modal-cancel-btn">Cancel</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Reject Modal -->
+    <div class="modal-overlay hidden" id="reject-modal">
+        <div class="modal-box" style="max-width:460px">
+            <div class="modal-header">
+                <h3><i class="fas fa-times-circle" style="color:var(--danger)"></i> Reject Content</h3>
+                <button class="modal-close" id="reject-modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="panel-form-group mt-4">
+                <label>Reason for Rejection</label>
+                <textarea id="reject-reason" class="form-input" rows="4" placeholder="Explain the reason for rejection..." style="resize:vertical"></textarea>
+            </div>
+            <div class="flex gap-3 mt-6" style="justify-content:flex-end">
+                <button class="btn btn-ghost" id="reject-cancel-btn">Cancel</button>
+                <button class="btn btn-danger" id="reject-confirm-btn"><i class="fas fa-times-circle"></i> Reject</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+
+</html>

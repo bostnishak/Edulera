@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Course Catalog — Edulera</title>
+    <meta name="description"
+        content="Explore all online courses on Edulera. Web development, data science, design, and marketing.">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/pages.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="js/theme.js"></script>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="index.html" class="navbar-logo">
+                <div class="navbar-logo-icon">E</div><span class="navbar-logo-text">Edu<span>lera</span></span>
+            </a>
+            <div class="navbar-links" id="navbar-links"><a href="index.html">Home</a><a href="catalog.html"
+                    class="active">Courses</a><a href="profile.html">My Profile</a></div>
+            <div class="navbar-actions">
+                <button class="theme-toggle" data-theme-toggle><span class="theme-toggle-icon">🌙</span></button>
+                <div id="nav-guest" class="flex gap-2"><a href="login.html" class="btn btn-ghost btn-sm">Sign In</a><a
+                        href="register.html" class="btn btn-primary btn-sm">Sign Up</a></div>
+                <div id="nav-user" class="hidden relative">
+                    <div class="navbar-avatar" id="nav-avatar-wrap"><span id="nav-avatar-text">U</span></div>
+                    <div class="navbar-dropdown" id="nav-dropdown"><a href="profile.html"><i class="fas fa-user"></i>
+                            My Profile</a><a href="profile.html"><i class="fas fa-award"></i> My Certificates</a>
+                        <hr><button id="nav-logout"><i class="fas fa-sign-out-alt"></i> Sign Out</button>
+                    </div>
+                </div>
+                <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+            </div>
+        </div>
+    </nav>
+    <div
+        style="padding-top:108px;padding-bottom:16px;background:var(--bg-secondary);border-bottom:1px solid var(--border-color)">
+        <div class="container">
+            <div class="section-label mb-2"><i class="fas fa-book-open"></i> Catalog</div>
+            <h1 style="font-size:2rem;margin-bottom:8px">All Courses</h1>
+            <p>Develop yourself in the area that interests you.</p>
+        </div>
+    </div>
+    <div class="container py-8">
+        <!-- search -->
+        <div class="catalog-search">
+            <div class="input-icon-wrap flex-1"><i class="fas fa-search input-icon"></i><input class="form-input"
+                    type="text" id="search-input" placeholder="Search courses..."></div>
+        </div>
+        <!-- rec tip -->
+        <div id="rec-section" class="hidden mb-6">
+            <div
+                style="background:var(--accent-soft);border:1px solid var(--accent-glow);border-radius:var(--radius-md);padding:14px 18px;display:flex;align-items:center;gap:10px;font-size:.9rem;color:var(--accent-500)">
+                <i class="fas fa-magic"></i> <span>Courses filtered based on your interests. <button
+                        style="background:none;border:none;color:var(--accent-500);font-weight:700;cursor:pointer;font-size:.9rem"
+                        onclick="document.querySelector('[data-cat=all]').click()">View all</button></span>
+            </div>
+        </div>
+        <div class="catalog-layout">
+            <!-- sidebar -->
+            <aside class="catalog-sidebar">
+                <div class="card">
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">Category</div>
+                        <div class="filter-group">
+                            <button class="filter-btn active" data-cat="all">All <span class="count">12</span></button>
+                            <button class="filter-btn" data-cat="Web Development">Web Development <span
+                                    class="count">4</span></button>
+                            <button class="filter-btn" data-cat="Data Science">Data Science <span
+                                    class="count">3</span></button>
+                            <button class="filter-btn" data-cat="Design">Design <span class="count">2</span></button>
+                            <button class="filter-btn" data-cat="Marketing">Marketing <span
+                                    class="count">3</span></button>
+                        </div>
+                    </div>
+                    <div class="sidebar-section">
+                        <div class="sidebar-title">Maximum Price</div>
+                        <input type="range" class="price-slider" id="price-slider" min="100" max="500" value="500"
+                            step="50">
+                        <div class="flex justify-between text-xs" style="color:var(--text-muted)"><span>$100</span><span
+                                id="price-val">$500</span></div>
+                    </div>
+                </div>
+            </aside>
+            <!-- main -->
+            <main>
+                <div class="catalog-toolbar">
+                    <span id="courses-count" style="font-size:.875rem;color:var(--text-muted)">12 courses found</span>
+                    <select class="sort-select" id="sort-select">
+                        <option value="popular">Most Popular</option>
+                        <option value="rating">Highest Rated</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                    </select>
+                </div>
+                <div class="courses-grid" id="courses-grid"></div>
+            </main>
+        </div>
+    </div>
+    <footer style="background:var(--footer-bg);color:#64748b;padding:24px 0;margin-top:40px">
+        <div class="container text-center text-sm">© 2025 Edulera. All rights reserved.</div>
+    </footer>
+    <script src="js/data.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/catalog.js"></script>
+</body>
+
+</html>
